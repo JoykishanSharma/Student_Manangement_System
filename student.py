@@ -41,6 +41,12 @@ class Student:
         bg_lbl = Label(self.root, image=self.photoImg_4, bd=2, relief=RIDGE)
         bg_lbl.place(x=0, y=160, width=1290, height=620)
 
+        # title label
+        lbl_title = Label(bg_lbl, text="STUDENT MANAGEMENT SYSTEM",
+                          font=("times new roman", 37, "bold"),
+                          fg="blue", bg="white")
+        lbl_title.place(x=0, y=0, width=1290, height=50)
+
 
 
 
