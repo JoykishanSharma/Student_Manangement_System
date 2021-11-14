@@ -47,8 +47,23 @@ class Student:
                           fg="blue", bg="white")
         lbl_title.place(x=0, y=0, width=1290, height=50)
 
+        # manage frame
         manage_frame = Frame(bg_lbl, bd=2, relief=RIDGE, bg="white")
-        manage_frame.place(x=15, y=50, width=1200, height=570)
+        manage_frame.place(x=15, y=65, width=1260, height=540)
+
+        # left frame
+        data_left_frame = LabelFrame(manage_frame, bd=4, relief=RIDGE,
+                                     padx=2, text="Student Information",
+                                     font=("times new roman", 12, "bold"),
+                                     fg="red", bg="white")
+        data_left_frame.place(x=10, y=10, width=610, height=510)
+
+        # right frame
+        data_right_frame = LabelFrame(manage_frame, bd=4, relief=RIDGE,
+                                      padx=2, text="Student Information",
+                                      font=("times new roman", 12, "bold"),
+                                      fg="red", bg="white")
+        data_right_frame.place(x=635, y=10, width=610, height=510)
 
 
 if __name__ == "__main__":
