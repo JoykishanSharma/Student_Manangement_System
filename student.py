@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk  # pip install pillow
 import mysql.connector  # pip install mysql-connector-python
+from tkinter import filedialog
+import os
 
 
 class Student:
@@ -18,7 +20,7 @@ class Student:
         self.var_semester = StringVar()
         self.var_std_id = StringVar()
         self.var_std_name = StringVar()
-        self.var_div = StringVar()
+        self.var_div_class = StringVar()
         self.var_roll = StringVar()
         self.var_gender = StringVar()
         self.var_dob = StringVar()
@@ -32,7 +34,7 @@ class Student:
         img_1 = img_1.resize((430, 160), Image.ANTIALIAS)
         self.photoImg_1 = ImageTk.PhotoImage(img_1)
 
-        self.btn_1 = Button(self.root, image=self.photoImg_1, cursor="hand2")
+        self.btn_1 = Button(self.root, command=self.open_image_1, image=self.photoImg_1, cursor="hand2")
         self.btn_1.place(x=0, y=0, width=430, height=160)
 
         # 2nd Image
@@ -40,7 +42,7 @@ class Student:
         img_2 = img_2.resize((430, 160), Image.ANTIALIAS)
         self.photoImg_2 = ImageTk.PhotoImage(img_2)
 
-        self.btn_2 = Button(self.root, image=self.photoImg_2, cursor="hand2")
+        self.btn_2 = Button(self.root, command=self.open_image_2, image=self.photoImg_2, cursor="hand2")
         self.btn_2.place(x=430, y=0, width=430, height=160)
 
         # 3rd Image
@@ -48,7 +50,7 @@ class Student:
         img_3 = img_3.resize((430, 160), Image.ANTIALIAS)
         self.photoImg_3 = ImageTk.PhotoImage(img_3)
 
-        self.btn_3 = Button(self.root, image=self.photoImg_3, cursor="hand2")
+        self.btn_3 = Button(self.root, command=self.open_image_3, image=self.photoImg_3, cursor="hand2")
         self.btn_3.place(x=860, y=0, width=430, height=160)
 
         # bg image
@@ -189,20 +191,20 @@ class Student:
         name_entry.grid(row=0, column=3, padx=2, pady=7, sticky=W)
 
         # Division
-        lbl_div = Label(std_lbl_class_frame, text="Class Div:",
-                        font=("arial", 11, "bold"), bg="white")
-        lbl_div.grid(row=1, column=0, padx=2, pady=7, sticky=W)
+        lbl_div_class = Label(std_lbl_class_frame, text="Class Div:",
+                              font=("arial", 11, "bold"), bg="white")
+        lbl_div_class.grid(row=1, column=0, padx=2, pady=7, sticky=W)
 
-        div_combo = ttk.Combobox(std_lbl_class_frame,
-                                 textvariable=self.var_div,
-                                 font=("arial", 10, "bold"),
-                                 width=15, state="readonly")
-        div_combo["value"] = ("Select Division",
-                              "A",
-                              "B",
-                              "C")
-        div_combo.current(0)
-        div_combo.grid(row=1, column=1, padx=2, pady=7, sticky=W)
+        div_class_combo = ttk.Combobox(std_lbl_class_frame,
+                                       textvariable=self.var_div_class,
+                                       font=("arial", 10, "bold"),
+                                       width=15, state="readonly")
+        div_class_combo["value"] = ("Select Division",
+                                    "A",
+                                    "B",
+                                    "C")
+        div_class_combo.current(0)
+        div_class_combo.grid(row=1, column=1, padx=2, pady=7, sticky=W)
 
         # Roll
         lbl_roll = Label(std_lbl_class_frame, text="Roll No.:",
@@ -299,18 +301,21 @@ class Student:
         # update button
         btn_update = Button(button_frame, text="Update",
                             font=("arial", 11, "bold"),
+                            command=self.update_data,
                             width=13, bg="blue", fg="white")
         btn_update.grid(row=0, column=1, padx=4, pady=6, sticky=W)
 
         # delete button
         btn_delete = Button(button_frame, text="Delete",
                             font=("arial", 11, "bold"),
+                            command=self.delete_data,
                             width=13, bg="blue", fg="white")
         btn_delete.grid(row=0, column=2, padx=4, pady=6, sticky=W)
 
         # reset button
         btn_reset = Button(button_frame, text="Reset",
                            font=("arial", 11, "bold"),
+                           command=self.reset_data,
                            width=13, bg="blue", fg="white")
         btn_reset.grid(row=0, column=3, padx=4, pady=6, sticky=W)
 
@@ -341,30 +346,37 @@ class Student:
                           font=("arial", 11, "bold"), fg="red", bg="black")
         search_by.grid(row=0, column=0, padx=5, sticky=W)
 
+        # search
+        self.var_combo_search = StringVar()
         search_combo = ttk.Combobox(search_frame,
+                                    textvariable=self.var_combo_search,
                                     font=("arial", 10, "bold"),
                                     width=15, state="readonly")
         search_combo["value"] = ("Select Option",
-                                 "Roll No",
+                                 "Roll_No",
                                  "Phone",
                                  "Student_id")
         search_combo.current(0)
         search_combo.grid(row=0, column=1, padx=5, sticky=W)
 
-        id_entry = ttk.Entry(search_frame,
-                             font=("arial", 10, "bold"),
-                             width=20)
-        id_entry.grid(row=0, column=2, padx=2, sticky=W)
+        self.var_search = StringVar()
+        search_entry = ttk.Entry(search_frame,
+                                 textvariable=self.var_search,
+                                 font=("arial", 10, "bold"),
+                                 width=20)
+        search_entry.grid(row=0, column=2, padx=2, sticky=W)
 
         # search button
         btn_search = Button(search_frame, text="Search",
                             font=("arial", 11, "bold"),
+                            command=self.search_data,
                             width=12, bg="blue", fg="white")
         btn_search.grid(row=0, column=3, padx=5, sticky=W)
 
         # show all button
         btn_show_all = Button(search_frame, text="Show All",
                               font=("arial", 11, "bold"),
+                              command=self.fetch_data,
                               width=12, bg="blue", fg="white")
         btn_show_all.grid(row=0, column=4, padx=5, sticky=W)
 
@@ -380,7 +392,7 @@ class Student:
                                                                "sem",
                                                                "id",
                                                                "name",
-                                                               "div",
+                                                               "div_class",
                                                                "roll",
                                                                "gender",
                                                                "dob",
@@ -402,7 +414,7 @@ class Student:
         self.student_table.heading("sem", text="Semester")
         self.student_table.heading("id", text="StudentID")
         self.student_table.heading("name", text="Student Name")
-        self.student_table.heading("div", text="Class Div")
+        self.student_table.heading("div_class", text="Class Div")
         self.student_table.heading("roll", text="Roll No")
         self.student_table.heading("gender", text="Gender")
         self.student_table.heading("dob", text="DOB")
@@ -419,7 +431,7 @@ class Student:
         self.student_table.column("sem", width=100)
         self.student_table.column("id", width=100)
         self.student_table.column("name", width=100)
-        self.student_table.column("div", width=100)
+        self.student_table.column("div_class", width=100)
         self.student_table.column("roll", width=100)
         self.student_table.column("gender", width=100)
         self.student_table.column("dob", width=100)
@@ -451,7 +463,7 @@ class Student:
                                 self.var_semester.get(),
                                 self.var_std_id.get(),
                                 self.var_std_name.get(),
-                                self.var_div.get(),
+                                self.var_div_class.get(),
                                 self.var_roll.get(),
                                 self.var_gender.get(),
                                 self.var_dob.get(),
@@ -495,7 +507,7 @@ class Student:
         self.var_semester.set(data[3])
         self.var_std_id.set(data[4])
         self.var_std_name.set(data[5])
-        self.var_div.set(data[6])
+        self.var_div_class.set(data[6])
         self.var_roll.set(data[7])
         self.var_gender.set(data[8])
         self.var_dob.set(data[9])
@@ -505,8 +517,149 @@ class Student:
         self.var_teacher.set(data[13])
 
     # update data
-    # def update_data(self):
+    def update_data(self):
+        if (self.var_dept.get() == "" or
+                self.var_email.get() == "" or
+                self.var_std_id.get() == ""):
+            messagebox.showerror("Error", "All Field are required!")
+        else:
+            try:
+                update = messagebox.askyesno("Update", "Are you sure update this student data",
+                                             parent=self.root)
+                if update > 0:
+                    connection = mysql.connector.connect(host="localhost",
+                                                         username="root",
+                                                         password="devServerSQL@123",
+                                                         database="student_management_system")
+                    cursor = connection.cursor()
+                    cursor.execute(
+                        "update student set dept=%s,course=%s,year=%s,semester=%s,name=%s,div_class=%s,roll_no=%s,"
+                        "gender=%s,dob=%s,email=%s,phone=%s,address=%s,teacher=%s where student_id=%s",
+                        (self.var_dept.get(),
+                         self.var_course.get(),
+                         self.var_year.get(),
+                         self.var_semester.get(),
+                         self.var_std_name.get(),
+                         self.var_div_class.get(),
+                         self.var_roll.get(),
+                         self.var_gender.get(),
+                         self.var_dob.get(),
+                         self.var_email.get(),
+                         self.var_phone.get(),
+                         self.var_address.get(),
+                         self.var_teacher.get(),
+                         self.var_std_id.get()
+                         ))
+                else:
+                    if not update:
+                        return
+                connection.commit()
+                self.fetch_data()
+                connection.close()
 
+                messagebox.showinfo("Success", "Student successfully updated", parent=self.root)
+            except Exception as es:
+                messagebox.showerror("Error", f"Due To:{str(es)}", parent=self.root)
+
+    # delete data
+    def delete_data(self):
+        if self.var_std_id.get() == "":
+            messagebox.showerror("Error", "All Field are required!")
+        else:
+            try:
+                delete = messagebox.askyesno("Delete", "Are you sure delete this student data",
+                                             parent=self.root)
+                if delete > 0:
+                    connection = mysql.connector.connect(host="localhost",
+                                                         username="root",
+                                                         password="devServerSQL@123",
+                                                         database="student_management_system")
+                    cursor = connection.cursor()
+                    sql_query = "delete from student where student_id=%s"
+                    value = (self.var_std_id.get(),)
+                    cursor.execute(sql_query, value)
+                else:
+                    if not delete:
+                        return
+                connection.commit()
+                self.fetch_data()
+                connection.close()
+
+                messagebox.showinfo("Delete", "Student successfully deleted", parent=self.root)
+            except Exception as es:
+                messagebox.showerror("Error", f"Due To:{str(es)}", parent=self.root)
+
+    # reset
+    def reset_data(self):
+        self.var_dept.set("Select Department")
+        self.var_course.set("Select Course")
+        self.var_year.set("Select Year")
+        self.var_semester.set("Select Semester")
+        self.var_std_id.set("")
+        self.var_std_name.set("")
+        self.var_div_class.set("Select Division")
+        self.var_roll.set("")
+        self.var_gender.set("")
+        self.var_dob.set("")
+        self.var_email.set("")
+        self.var_phone.set("")
+        self.var_address.set("")
+        self.var_teacher.set("")
+
+    # search data
+    def search_data(self):
+        if self.var_combo_search.get() == "" or self.var_search.get() == "":
+            messagebox.showerror("Error", "Please select option")
+        else:
+            try:
+                connection = mysql.connector.connect(host="localhost",
+                                                     username="root",
+                                                     password="devServerSQL@123",
+                                                     database="student_management_system")
+                cursor = connection.cursor()
+                cursor.execute("Select * from student where " + str(self.var_combo_search.get()) +
+                               " LIKE '%" + str(self.var_search.get()) + "%'")
+                data = cursor.fetchall()
+                if len(data) != 0:
+                    self.student_table.delete(*self.student_table.get_children())
+                    for i in data:
+                        self.student_table.insert("", END, values=i)
+                    connection.commit()
+                connection.close()
+            except Exception as es:
+                messagebox.showerror("Error", f"Due To:{str(es)}", parent=self.root)
+
+    # open image
+    def open_image_1(self):
+        file_name = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open Image",
+                                               filetypes=(
+                                                   ("JPG File", "*.jpg"), ("PNG File", "*.png"), ("All Files", "*.*")))
+        image_1 = Image.open(file_name)
+        img_browse_1 = image_1.resize((430, 160), Image.ANTIALIAS)
+        self.photoimg_browse_1 = ImageTk.PhotoImage(img_browse_1)
+        self.btn_1.config(image=self.photoimg_browse_1)
+
+    # open image
+    def open_image_2(self):
+        file_name = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open Image",
+                                               filetypes=(
+                                                   ("JPG File", "*.jpg"), ("PNG File", "*.png"),
+                                                   ("All Files", "*.*")))
+        image_2 = Image.open(file_name)
+        img_browse_2 = image_2.resize((430, 160), Image.ANTIALIAS)
+        self.photoimg_browse_2 = ImageTk.PhotoImage(img_browse_2)
+        self.btn_2.config(image=self.photoimg_browse_2)
+
+    # open image
+    def open_image_3(self):
+        file_name = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open Image",
+                                               filetypes=(
+                                                   ("JPG File", "*.jpg"), ("PNG File", "*.png"),
+                                                   ("All Files", "*.*")))
+        image_3 = Image.open(file_name)
+        img_browse_3 = image_3.resize((430, 160), Image.ANTIALIAS)
+        self.photoimg_browse_3 = ImageTk.PhotoImage(img_browse_3)
+        self.btn_3.config(image=self.photoimg_browse_3)
 
 
 if __name__ == "__main__":
