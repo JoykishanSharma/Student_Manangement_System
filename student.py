@@ -47,7 +47,8 @@ class Student:
                           fg="blue", bg="white")
         lbl_title.place(x=0, y=0, width=1290, height=50)
 
-
+        manage_frame = Frame(bg_lbl, bd=2, relief=RIDGE, bg="white")
+        manage_frame.place(x=15, y=50, width=1200, height=570)
 
 
 if __name__ == "__main__":
