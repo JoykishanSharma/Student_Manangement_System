@@ -661,8 +661,3 @@ class Student:
         self.photoimg_browse_3 = ImageTk.PhotoImage(img_browse_3)
         self.btn_3.config(image=self.photoimg_browse_3)
 
-
-if __name__ == "__main__":
-    root = Tk()
-    obj = Student(root)
-    root.mainloop()
