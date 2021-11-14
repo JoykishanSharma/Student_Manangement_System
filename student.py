@@ -33,6 +33,15 @@ class Student:
         self.btn_3 = Button(self.root, image=self.photoImg_3, cursor="hand2")
         self.btn_3.place(x=860, y=0, width=430, height=160)
 
+        # bg image
+        img_4 = Image.open(r"college_images\university.jpg")
+        img_4 = img_4.resize((1290, 780), Image.ANTIALIAS)
+        self.photoImg_4 = ImageTk.PhotoImage(img_4)
+
+        bg_lbl = Label(self.root, image=self.photoImg_4, bd=2, relief=RIDGE)
+        bg_lbl.place(x=0, y=160, width=1290, height=620)
+
+
 
 
 if __name__ == "__main__":
