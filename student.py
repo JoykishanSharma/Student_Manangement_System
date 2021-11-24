@@ -3,8 +3,6 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk  # pip install pillow
 import mysql.connector  # pip install mysql-connector-python
-from tkinter import filedialog
-import os
 
 
 class Student:
@@ -34,30 +32,6 @@ class Student:
         self.var_phone = StringVar()
         self.var_address = StringVar()
         self.var_mentor = StringVar()
-
-        # 1st Image
-        # img_1 = Image.open(r"college_images\classroom.jpg")
-        # img_1 = img_1.resize((430, 160), Image.ANTIALIAS)
-        # self.photoImg_1 = ImageTk.PhotoImage(img_1)
-
-        # self.btn_1 = Button(self.root, command=self.open_image_1, image=self.photoImg_1, cursor="hand2")
-        # self.btn_1.place(x=0, y=0, width=430, height=160)
-
-        # 2nd Image
-        # img_2 = Image.open(r"college_images\7th.jpg")
-        # img_2 = img_2.resize((430, 160), Image.ANTIALIAS)
-        # self.photoImg_2 = ImageTk.PhotoImage(img_2)
-
-        # self.btn_2 = Button(self.root, command=self.open_image_2, image=self.photoImg_2, cursor="hand2")
-        # self.btn_2.place(x=430, y=0, width=430, height=160)
-
-        # 3rd Image
-        # img_3 = Image.open(r"college_images\7th.jpg")
-        # img_3 = img_3.resize((430, 160), Image.ANTIALIAS)
-        # self.photoImg_3 = ImageTk.PhotoImage(img_3)
-
-        # self.btn_3 = Button(self.root, command=self.open_image_3, image=self.photoImg_3, cursor="hand2")
-        # self.btn_3.place(x=860, y=0, width=430, height=160)
 
         # bg image
         img_4 = Image.open(r"college_images\university.jpg")
@@ -439,7 +413,7 @@ class Student:
                                                                "id",
                                                                "name",
                                                                "father_name",
-                                                               "father_mobi"
+                                                               "father_mobi",
                                                                "bd_grp",
                                                                "roll",
                                                                "gender",
@@ -460,7 +434,7 @@ class Student:
         self.student_table.heading("course", text="Course")
         self.student_table.heading("admit_year", text="Admission Year")
         self.student_table.heading("sem", text="Semester")
-        self.student_table.heading("id", text="StudentID")
+        self.student_table.heading("id", text="Student ID")
         self.student_table.heading("name", text="Student Name")
         self.student_table.heading("father_name", text="Father Name")
         self.student_table.heading("father_mobi", text="Father Mobile")
@@ -475,21 +449,21 @@ class Student:
 
         self.student_table["show"] = "headings"
 
-        self.student_table.column("dept", width=100)
+        self.student_table.column("dept", width=150)
         self.student_table.column("course", width=100)
         self.student_table.column("admit_year", width=100)
         self.student_table.column("sem", width=100)
         self.student_table.column("id", width=100)
-        self.student_table.column("name", width=100)
-        self.student_table.column("father_name", width=100)
+        self.student_table.column("name", width=150)
+        self.student_table.column("father_name", width=150)
         self.student_table.column("father_mobi", width=100)
         self.student_table.column("bd_grp", width=100)
         self.student_table.column("roll", width=100)
         self.student_table.column("gender", width=100)
         self.student_table.column("dob", width=100)
-        self.student_table.column("email", width=100)
+        self.student_table.column("email", width=150)
         self.student_table.column("phone", width=100)
-        self.student_table.column("address", width=100)
+        self.student_table.column("address", width=150)
         self.student_table.column("mentor", width=100)
 
         self.student_table.pack(fill=BOTH, expand=1)
@@ -686,6 +660,8 @@ class Student:
                     for i in data:
                         self.student_table.insert("", END, values=i)
                     connection.commit()
+                else:
+                    messagebox.showerror("Search Result", "No Such Student Found")
                 connection.close()
             except Exception as es:
                 messagebox.showerror("Error", f"Due To:{str(es)}", parent=self.root)
