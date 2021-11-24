@@ -18,7 +18,7 @@ To make changes, please make a Pull Request.
 ![MySQL Workbench Screenshot](https://raw.githubusercontent.com/JoykishanSharma/Student_Manangement_System/master/images/workbench_screenshot.png)
 
 ## Database Connection
-Make sure to update [these variables]() to establish the database connection.
+Make sure to update [these variables](https://github.com/JoykishanSharma/Student_Manangement_System/blob/master/student.py#L37) to establish the database connection.
 
 ## Application Screenshot
-![SMS Application Screenshot](https://raw.githubusercontent.com/JoykishanSharma/Student_Manangement_System/master/cimages/application_screenshot.png)
+![SMS Application Screenshot](https://github.com/JoykishanSharma/Student_Manangement_System/blob/master/images/application_screenshot.png)
