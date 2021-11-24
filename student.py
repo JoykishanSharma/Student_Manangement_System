@@ -20,11 +20,13 @@ class Student:
         # Variables
         self.var_dept = StringVar()
         self.var_course = StringVar()
-        self.var_year = StringVar()
+        self.var_admission_year = StringVar()
         self.var_semester = StringVar()
         self.var_std_id = StringVar()
         self.var_std_name = StringVar()
-        self.var_div_class = StringVar()
+        self.var_father_name = StringVar()
+        self.var_father_mobile = StringVar()
+        self.var_blood_group = StringVar()
         self.var_roll = StringVar()
         self.var_gender = StringVar()
         self.var_dob = StringVar()
@@ -34,28 +36,28 @@ class Student:
         self.var_teacher = StringVar()
 
         # 1st Image
-        #img_1 = Image.open(r"college_images\classroom.jpg")
-        #img_1 = img_1.resize((430, 160), Image.ANTIALIAS)
-        #self.photoImg_1 = ImageTk.PhotoImage(img_1)
+        # img_1 = Image.open(r"college_images\classroom.jpg")
+        # img_1 = img_1.resize((430, 160), Image.ANTIALIAS)
+        # self.photoImg_1 = ImageTk.PhotoImage(img_1)
 
-        #self.btn_1 = Button(self.root, command=self.open_image_1, image=self.photoImg_1, cursor="hand2")
-        #self.btn_1.place(x=0, y=0, width=430, height=160)
+        # self.btn_1 = Button(self.root, command=self.open_image_1, image=self.photoImg_1, cursor="hand2")
+        # self.btn_1.place(x=0, y=0, width=430, height=160)
 
         # 2nd Image
-        #img_2 = Image.open(r"college_images\7th.jpg")
-        #img_2 = img_2.resize((430, 160), Image.ANTIALIAS)
-        #self.photoImg_2 = ImageTk.PhotoImage(img_2)
+        # img_2 = Image.open(r"college_images\7th.jpg")
+        # img_2 = img_2.resize((430, 160), Image.ANTIALIAS)
+        # self.photoImg_2 = ImageTk.PhotoImage(img_2)
 
-        #self.btn_2 = Button(self.root, command=self.open_image_2, image=self.photoImg_2, cursor="hand2")
-        #self.btn_2.place(x=430, y=0, width=430, height=160)
+        # self.btn_2 = Button(self.root, command=self.open_image_2, image=self.photoImg_2, cursor="hand2")
+        # self.btn_2.place(x=430, y=0, width=430, height=160)
 
         # 3rd Image
-        #img_3 = Image.open(r"college_images\7th.jpg")
-        #img_3 = img_3.resize((430, 160), Image.ANTIALIAS)
-        #self.photoImg_3 = ImageTk.PhotoImage(img_3)
+        # img_3 = Image.open(r"college_images\7th.jpg")
+        # img_3 = img_3.resize((430, 160), Image.ANTIALIAS)
+        # self.photoImg_3 = ImageTk.PhotoImage(img_3)
 
-        #self.btn_3 = Button(self.root, command=self.open_image_3, image=self.photoImg_3, cursor="hand2")
-        #self.btn_3.place(x=860, y=0, width=430, height=160)
+        # self.btn_3 = Button(self.root, command=self.open_image_3, image=self.photoImg_3, cursor="hand2")
+        # self.btn_3.place(x=860, y=0, width=430, height=160)
 
         # bg image
         img_4 = Image.open(r"college_images\university.jpg")
@@ -73,20 +75,20 @@ class Student:
 
         # manage frame
         manage_frame = Frame(bg_lbl, bd=2, relief=RIDGE, bg="white")
-        manage_frame.place(x=10, y=60, width=width-20, height=height-130)
+        manage_frame.place(x=10, y=60, width=width - 20, height=height - 130)
 
         # left frame
         data_left_frame = LabelFrame(manage_frame, bd=4, relief=RIDGE,
                                      padx=2, text="Student Information",
                                      font=("times new roman", 12, "bold"),
                                      fg="red", bg="white")
-        data_left_frame.place(x=10, y=5, width=(width-50)/2, height=height-150)
+        data_left_frame.place(x=10, y=5, width=(width - 50) / 2, height=height - 150)
 
         # image - inside left frame
-        image_width = int((width-50)/2)
-        left_frame_width = int((width-50)/2 - 10)
+        image_width = int((width - 50) / 2)
+        left_frame_width = int((width - 50) / 2 - 10)
         img_5 = Image.open(r"college_images\left_frame.jpg")
-        img_5 = img_5.resize((image_width-10, 220), Image.ANTIALIAS)
+        img_5 = img_5.resize((image_width - 10, 220), Image.ANTIALIAS)
         self.photoImg_5 = ImageTk.PhotoImage(img_5)
 
         left_top_img = Label(data_left_frame, image=self.photoImg_5, bd=2, relief=RIDGE,
@@ -102,9 +104,9 @@ class Student:
 
         # Label and Combobox
         # department
-        lbl_dept = Label(std_lbl_info_frame, text="Department",
+        lbl_dept = Label(std_lbl_info_frame, text="Department: ",
                          font=("arial", 11, "bold"), bg="white")
-        lbl_dept.grid(row=0, column=0, padx=2, sticky=W)
+        lbl_dept.grid(row=0, column=0, padx=(10, 2), sticky=W)
 
         combo_dept = ttk.Combobox(std_lbl_info_frame,
                                   textvariable=self.var_dept,
@@ -121,9 +123,9 @@ class Student:
         combo_dept.grid(row=0, column=1, padx=2, pady=10, sticky=W)
 
         # course
-        course_std = Label(std_lbl_info_frame, text="Course Type:",
+        course_std = Label(std_lbl_info_frame, text="Course Type: ",
                            font=("arial", 11, "bold"), bg="white")
-        course_std.grid(row=0, column=2, padx=2, pady=10, sticky=W)
+        course_std.grid(row=0, column=2, padx=(50, 2), pady=10, sticky=W)
 
         combo_course = ttk.Combobox(std_lbl_info_frame,
                                     textvariable=self.var_course,
@@ -135,35 +137,41 @@ class Student:
         combo_course.current(0)
         combo_course.grid(row=0, column=3, padx=2, pady=10, sticky=W)
 
-        # year
-        current_year = Label(std_lbl_info_frame, text="Year:",
-                             font=("arial", 11, "bold"), bg="white")
-        current_year.grid(row=1, column=0, padx=2, pady=10, sticky=W)
+        # admission year
+        admission_year = Label(std_lbl_info_frame, text="Admission Year: ",
+                               font=("arial", 11, "bold"), bg="white")
+        admission_year.grid(row=1, column=0, padx=(10, 2), pady=10, sticky=W)
 
-        combo_current_year = ttk.Combobox(std_lbl_info_frame,
-                                          textvariable=self.var_year,
-                                          font=("arial", 10, "bold"),
-                                          width=17, state="readonly")
-        combo_current_year["value"] = ("Select Year",
-                                       "2020-2021",
-                                       "2021-2022",
-                                       "2022-2023",
-                                       "2023-2024")
-        combo_current_year.current(0)
-        combo_current_year.grid(row=1, column=1, padx=2, sticky=W)
+        combo_admission_year = ttk.Combobox(std_lbl_info_frame,
+                                            textvariable=self.var_admission_year,
+                                            font=("arial", 10, "bold"),
+                                            width=24, state="readonly")
+        combo_admission_year["value"] = ("Select Year",
+                                         "2018",
+                                         "2019",
+                                         "2020",
+                                         "2021")
+        combo_admission_year.current(0)
+        combo_admission_year.grid(row=1, column=1, padx=2, sticky=W)
 
         # semester
-        semester_label = Label(std_lbl_info_frame, text="Semester:",
+        semester_label = Label(std_lbl_info_frame, text="Semester: ",
                                font=("arial", 11, "bold"), bg="white")
-        semester_label.grid(row=1, column=2, padx=2, pady=10, sticky=W)
+        semester_label.grid(row=1, column=2, padx=(50, 2), pady=10, sticky=W)
 
         combo_semester_label = ttk.Combobox(std_lbl_info_frame,
                                             textvariable=self.var_semester,
                                             font=("arial", 10, "bold"),
-                                            width=17, state="readonly")
+                                            width=18, state="readonly")
         combo_semester_label["value"] = ("Select Semester",
                                          "Semester-1",
-                                         "Semester-2")
+                                         "Semester-2",
+                                         "Semester-3",
+                                         "Semester-4",
+                                         "Semester-5",
+                                         "Semester-6",
+                                         "Semester-7",
+                                         "Semester-8")
         combo_semester_label.current(0)
         combo_semester_label.grid(row=1, column=3, padx=2, pady=0, sticky=W)
 
@@ -172,166 +180,195 @@ class Student:
                                          padx=2, text="Student Class Information",
                                          font=("times new roman", 12, "bold"),
                                          fg="red", bg="white")
-        std_lbl_class_frame.place(x=0, y=335, width=550, height=220)
+        std_lbl_class_frame.place(x=0, y=335, width=left_frame_width, height=270)
 
         # Label and Combobox
         # ID
-        lbl_id = Label(std_lbl_class_frame, text="StudentID:",
+        lbl_id = Label(std_lbl_class_frame, text="Student ID: ",
                        font=("arial", 11, "bold"), bg="white")
-        lbl_id.grid(row=0, column=0, padx=2, pady=7, sticky=W)
+        lbl_id.grid(row=0, column=0, padx=(10, 2), pady=7, sticky=W)
 
         id_entry = ttk.Entry(std_lbl_class_frame,
                              textvariable=self.var_std_id,
                              font=("arial", 10, "bold"),
-                             width=15)
+                             width=24)
         id_entry.grid(row=0, column=1, padx=2, pady=7, sticky=W)
 
         # Name
-        lbl_name = Label(std_lbl_class_frame, text="Student Name:",
+        lbl_name = Label(std_lbl_class_frame, text="Student Name: ",
                          font=("arial", 11, "bold"), bg="white")
-        lbl_name.grid(row=0, column=2, padx=2, pady=7, sticky=W)
+        lbl_name.grid(row=0, column=2, padx=(50, 2), pady=7, sticky=W)
 
         name_entry = ttk.Entry(std_lbl_class_frame,
                                textvariable=self.var_std_name,
                                font=("arial", 10, "bold"),
-                               width=15)
+                               width=24)
         name_entry.grid(row=0, column=3, padx=2, pady=7, sticky=W)
 
-        # Division
-        lbl_div_class = Label(std_lbl_class_frame, text="Class Div:",
-                              font=("arial", 11, "bold"), bg="white")
-        lbl_div_class.grid(row=1, column=0, padx=2, pady=7, sticky=W)
+        # Father's Name
+        lbl_father_name = Label(std_lbl_class_frame, text="Father Name: ",
+                                font=("arial", 11, "bold"), bg="white")
+        lbl_father_name.grid(row=1, column=0, padx=(10, 2), pady=7, sticky=W)
 
-        div_class_combo = ttk.Combobox(std_lbl_class_frame,
-                                       textvariable=self.var_div_class,
-                                       font=("arial", 10, "bold"),
-                                       width=15, state="readonly")
-        div_class_combo["value"] = ("Select Division",
-                                    "A",
-                                    "B",
-                                    "C")
-        div_class_combo.current(0)
-        div_class_combo.grid(row=1, column=1, padx=2, pady=7, sticky=W)
+        father_name_entry = ttk.Entry(std_lbl_class_frame,
+                                      textvariable=self.var_father_name,
+                                      font=("arial", 10, "bold"),
+                                      width=24)
+        father_name_entry.grid(row=1, column=1, padx=2, pady=7, sticky=W)
+
+        # Father Mobile
+        lbl_father_mobile = Label(std_lbl_class_frame, text="Father Mobile: ",
+                                  font=("arial", 11, "bold"), bg="white")
+        lbl_father_mobile.grid(row=1, column=2, padx=(50, 2), pady=7, sticky=W)
+
+        father_mobile_entry = ttk.Entry(std_lbl_class_frame,
+                                        textvariable=self.var_father_mobile,
+                                        font=("arial", 10, "bold"),
+                                        width=24)
+        father_mobile_entry.grid(row=1, column=3, padx=2, pady=7, sticky=W)
+
+        # Blood Group
+        lbl_bd_grp_class = Label(std_lbl_class_frame, text="Blood Group:",
+                                 font=("arial", 11, "bold"), bg="white")
+        lbl_bd_grp_class.grid(row=2, column=0, padx=(10, 2), pady=7, sticky=W)
+
+        blood_group_combo = ttk.Combobox(std_lbl_class_frame,
+                                         textvariable=self.var_blood_group,
+                                         font=("arial", 10, "bold"),
+                                         width=20, state="readonly")
+        blood_group_combo["value"] = ("Select Blood Group",
+                                      "A+",
+                                      "O+",
+                                      "B+",
+                                      "AB+",
+                                      "A-",
+                                      "O-",
+                                      "B-",
+                                      "AB-"
+                                      )
+        blood_group_combo.current(0)
+        blood_group_combo.grid(row=2, column=1, padx=2, pady=7, sticky=W)
 
         # Roll
         lbl_roll = Label(std_lbl_class_frame, text="Roll No.:",
                          font=("arial", 11, "bold"), bg="white")
-        lbl_roll.grid(row=1, column=2, padx=2, pady=7, sticky=W)
+        lbl_roll.grid(row=2, column=2, padx=(50, 2), pady=7, sticky=W)
 
         roll_entry = ttk.Entry(std_lbl_class_frame,
                                textvariable=self.var_roll,
                                font=("arial", 10, "bold"),
-                               width=15)
-        roll_entry.grid(row=1, column=3, padx=2, pady=7, sticky=W)
+                               width=24)
+        roll_entry.grid(row=2, column=3, padx=2, pady=7, sticky=W)
 
         # Gender
         lbl_gender = Label(std_lbl_class_frame, text="Gender:",
                            font=("arial", 11, "bold"), bg="white")
-        lbl_gender.grid(row=2, column=0, padx=2, pady=7, sticky=W)
+        lbl_gender.grid(row=3, column=0, padx=(10, 2), pady=7, sticky=W)
 
         gender_combo = ttk.Combobox(std_lbl_class_frame,
                                     textvariable=self.var_gender,
                                     font=("arial", 10, "bold"),
-                                    width=15, state="readonly")
+                                    width=20, state="readonly")
         gender_combo["value"] = ("Male",
                                  "Female",
                                  "Other")
         gender_combo.current(0)
-        gender_combo.grid(row=2, column=1, padx=2, pady=7, sticky=W)
+        gender_combo.grid(row=3, column=1, padx=2, pady=7, sticky=W)
 
         # Date Of Birth
         lbl_dob = Label(std_lbl_class_frame, text="DOB:",
                         font=("arial", 11, "bold"), bg="white")
-        lbl_dob.grid(row=2, column=2, padx=2, pady=7, sticky=W)
+        lbl_dob.grid(row=3, column=2, padx=(50, 2), pady=7, sticky=W)
 
         dob_entry = ttk.Entry(std_lbl_class_frame,
                               textvariable=self.var_dob,
                               font=("arial", 10, "bold"),
-                              width=15)
-        dob_entry.grid(row=2, column=3, padx=2, pady=7, sticky=W)
+                              width=24)
+        dob_entry.grid(row=3, column=3, padx=2, pady=7, sticky=W)
 
         # Email
         lbl_email = Label(std_lbl_class_frame, text="Email:",
                           font=("arial", 11, "bold"), bg="white")
-        lbl_email.grid(row=3, column=0, padx=2, pady=7, sticky=W)
+        lbl_email.grid(row=4, column=0, padx=(10, 2), pady=7, sticky=W)
 
         email_entry = ttk.Entry(std_lbl_class_frame,
                                 textvariable=self.var_email,
                                 font=("arial", 10, "bold"),
-                                width=15)
-        email_entry.grid(row=3, column=1, padx=2, pady=7, sticky=W)
+                                width=24)
+        email_entry.grid(row=4, column=1, padx=2, pady=7, sticky=W)
 
         # phone
-        lbl_phone = Label(std_lbl_class_frame, text="Phone:",
+        lbl_phone = Label(std_lbl_class_frame, text="Mobile:",
                           font=("arial", 11, "bold"), bg="white")
-        lbl_phone.grid(row=3, column=2, padx=2, pady=7, sticky=W)
+        lbl_phone.grid(row=4, column=2, padx=(50, 2), pady=7, sticky=W)
 
         phone_entry = ttk.Entry(std_lbl_class_frame,
                                 textvariable=self.var_phone,
                                 font=("arial", 10, "bold"),
-                                width=15)
-        phone_entry.grid(row=3, column=3, padx=2, pady=7, sticky=W)
+                                width=24)
+        phone_entry.grid(row=4, column=3, padx=2, pady=7, sticky=W)
 
         # Address
         lbl_address = Label(std_lbl_class_frame, text="Address:",
                             font=("arial", 11, "bold"), bg="white")
-        lbl_address.grid(row=4, column=0, padx=2, pady=7, sticky=W)
+        lbl_address.grid(row=5, column=0, padx=(10, 2), pady=7, sticky=W)
 
         address_entry = ttk.Entry(std_lbl_class_frame,
                                   textvariable=self.var_address,
                                   font=("arial", 10, "bold"),
-                                  width=15)
-        address_entry.grid(row=4, column=1, padx=2, pady=7, sticky=W)
+                                  width=24)
+        address_entry.grid(row=5, column=1, padx=2, pady=7, sticky=W)
 
         # Teacher
-        lbl_teacher = Label(std_lbl_class_frame, text="Teacher:",
-                            font=("arial", 11, "bold"), bg="white")
-        lbl_teacher.grid(row=4, column=2, padx=2, pady=7, sticky=W)
+        lbl_mentor = Label(std_lbl_class_frame, text="Mentor:",
+                           font=("arial", 11, "bold"), bg="white")
+        lbl_mentor.grid(row=5, column=2, padx=(50, 2), pady=7, sticky=W)
 
-        teacher_entry = ttk.Entry(std_lbl_class_frame,
-                                  textvariable=self.var_teacher,
-                                  font=("arial", 10, "bold"),
-                                  width=15)
-        teacher_entry.grid(row=4, column=3, padx=2, pady=7, sticky=W)
+        mentor_entry = ttk.Entry(std_lbl_class_frame,
+                                 textvariable=self.var_teacher,
+                                 font=("arial", 10, "bold"),
+                                 width=24)
+        mentor_entry.grid(row=5, column=3, padx=2, pady=7, sticky=W)
 
         # button frame
-        button_frame = Frame(data_left_frame, bd=2, relief=RIDGE, bg="white")
-        button_frame.place(x=0, y=560, width=550, height=50)
+        button_frame = Frame(data_left_frame, bd=2, relief="solid", borderwidth=0,
+                             highlightthickness=0, bg="white")
+        button_frame.place(x=0, y=610, width=left_frame_width, height=75)
 
         # save button
-        btn_add = Button(button_frame, text="Save",
-                         font=("arial", 11, "bold"),
+        btn_add = Button(button_frame, text="SAVE",
+                         font=("arial", 12, "bold"),
                          command=self.add_data,
-                         width=13, bg="blue", fg="white")
-        btn_add.grid(row=0, column=0, padx=6, pady=6, sticky=W)
+                         width=16, height=2, bg="blue", fg="white")
+        btn_add.grid(row=0, column=0, padx=6, pady=10, sticky=W)
 
         # update button
-        btn_update = Button(button_frame, text="Update",
-                            font=("arial", 11, "bold"),
+        btn_update = Button(button_frame, text="UPDATE",
+                            font=("arial", 12, "bold"),
                             command=self.update_data,
-                            width=13, bg="blue", fg="white")
-        btn_update.grid(row=0, column=1, padx=4, pady=6, sticky=W)
+                            width=16, height=2, bg="blue", fg="white")
+        btn_update.grid(row=0, column=1, padx=6, pady=6, sticky=W)
 
         # delete button
-        btn_delete = Button(button_frame, text="Delete",
-                            font=("arial", 11, "bold"),
+        btn_delete = Button(button_frame, text="DELETE",
+                            font=("arial", 12, "bold"),
                             command=self.delete_data,
-                            width=13, bg="blue", fg="white")
-        btn_delete.grid(row=0, column=2, padx=4, pady=6, sticky=W)
+                            width=16, height=2, bg="blue", fg="white")
+        btn_delete.grid(row=0, column=2, padx=6, pady=6, sticky=W)
 
         # reset button
-        btn_reset = Button(button_frame, text="Reset",
-                           font=("arial", 11, "bold"),
+        btn_reset = Button(button_frame, text="RESET",
+                           font=("arial", 12, "bold"),
                            command=self.reset_data,
-                           width=13, bg="blue", fg="white")
-        btn_reset.grid(row=0, column=3, padx=4, pady=6, sticky=W)
+                           width=16, height=2, bg="blue", fg="white")
+        btn_reset.grid(row=0, column=3, padx=6, pady=6, sticky=W)
 
         # right frame
         data_right_frame = LabelFrame(manage_frame, bd=4, relief=RIDGE,
                                       padx=2, text="Student Information",
                                       font=("times new roman", 11, "bold"),
                                       fg="red", bg="white")
-        data_right_frame.place(x=(width-50)/2 + 15, y=5, width=(width-50)-(width-50)/2, height=height-150)
+        data_right_frame.place(x=(width - 50) / 2 + 15, y=5, width=(width - 50) - (width - 50) / 2, height=height - 150)
 
         # image - inside right frame
         img_6 = Image.open(r"college_images\6th.jpg")
@@ -667,4 +704,3 @@ class Student:
         img_browse_3 = image_3.resize((430, 160), Image.ANTIALIAS)
         self.photoimg_browse_3 = ImageTk.PhotoImage(img_browse_3)
         self.btn_3.config(image=self.photoimg_browse_3)
-
