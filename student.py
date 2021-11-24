@@ -10,7 +10,11 @@ import os
 class Student:
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1290x780+0+0")
+        width = root.winfo_screenwidth()
+        height = root.winfo_screenheight()
+
+        # maximize the tkinter window
+        root.state('zoomed')
         self.root.title("STUDENT MANAGEMENT SYSTEM")
 
         # Variables
@@ -30,53 +34,53 @@ class Student:
         self.var_teacher = StringVar()
 
         # 1st Image
-        img_1 = Image.open(r"college_images\7th.jpg")
-        img_1 = img_1.resize((430, 160), Image.ANTIALIAS)
-        self.photoImg_1 = ImageTk.PhotoImage(img_1)
+        #img_1 = Image.open(r"college_images\classroom.jpg")
+        #img_1 = img_1.resize((430, 160), Image.ANTIALIAS)
+        #self.photoImg_1 = ImageTk.PhotoImage(img_1)
 
-        self.btn_1 = Button(self.root, command=self.open_image_1, image=self.photoImg_1, cursor="hand2")
-        self.btn_1.place(x=0, y=0, width=430, height=160)
+        #self.btn_1 = Button(self.root, command=self.open_image_1, image=self.photoImg_1, cursor="hand2")
+        #self.btn_1.place(x=0, y=0, width=430, height=160)
 
         # 2nd Image
-        img_2 = Image.open(r"college_images\7th.jpg")
-        img_2 = img_2.resize((430, 160), Image.ANTIALIAS)
-        self.photoImg_2 = ImageTk.PhotoImage(img_2)
+        #img_2 = Image.open(r"college_images\7th.jpg")
+        #img_2 = img_2.resize((430, 160), Image.ANTIALIAS)
+        #self.photoImg_2 = ImageTk.PhotoImage(img_2)
 
-        self.btn_2 = Button(self.root, command=self.open_image_2, image=self.photoImg_2, cursor="hand2")
-        self.btn_2.place(x=430, y=0, width=430, height=160)
+        #self.btn_2 = Button(self.root, command=self.open_image_2, image=self.photoImg_2, cursor="hand2")
+        #self.btn_2.place(x=430, y=0, width=430, height=160)
 
         # 3rd Image
-        img_3 = Image.open(r"college_images\7th.jpg")
-        img_3 = img_3.resize((430, 160), Image.ANTIALIAS)
-        self.photoImg_3 = ImageTk.PhotoImage(img_3)
+        #img_3 = Image.open(r"college_images\7th.jpg")
+        #img_3 = img_3.resize((430, 160), Image.ANTIALIAS)
+        #self.photoImg_3 = ImageTk.PhotoImage(img_3)
 
-        self.btn_3 = Button(self.root, command=self.open_image_3, image=self.photoImg_3, cursor="hand2")
-        self.btn_3.place(x=860, y=0, width=430, height=160)
+        #self.btn_3 = Button(self.root, command=self.open_image_3, image=self.photoImg_3, cursor="hand2")
+        #self.btn_3.place(x=860, y=0, width=430, height=160)
 
         # bg image
         img_4 = Image.open(r"college_images\university.jpg")
-        img_4 = img_4.resize((1290, 780), Image.ANTIALIAS)
+        img_4 = img_4.resize((width, height), Image.ANTIALIAS)
         self.photoImg_4 = ImageTk.PhotoImage(img_4)
 
         bg_lbl = Label(self.root, image=self.photoImg_4, bd=2, relief=RIDGE)
-        bg_lbl.place(x=0, y=160, width=1290, height=620)
+        bg_lbl.place(x=0, y=0, width=width, height=height)
 
         # title label
         lbl_title = Label(bg_lbl, text="STUDENT MANAGEMENT SYSTEM",
                           font=("times new roman", 37, "bold"),
                           fg="blue", bg="white")
-        lbl_title.place(x=0, y=0, width=1290, height=50)
+        lbl_title.place(x=0, y=0, width=width, height=50)
 
         # manage frame
         manage_frame = Frame(bg_lbl, bd=2, relief=RIDGE, bg="white")
-        manage_frame.place(x=15, y=60, width=1260, height=550)
+        manage_frame.place(x=10, y=60, width=width-20, height=height-130)
 
         # left frame
         data_left_frame = LabelFrame(manage_frame, bd=4, relief=RIDGE,
                                      padx=2, text="Student Information",
                                      font=("times new roman", 12, "bold"),
                                      fg="red", bg="white")
-        data_left_frame.place(x=10, y=5, width=560, height=535)
+        data_left_frame.place(x=10, y=5, width=(width-50)/2, height=height-150)
 
         # image - inside left frame
         img_5 = Image.open(r"college_images\3rd.jpg")
@@ -324,7 +328,7 @@ class Student:
                                       padx=2, text="Student Information",
                                       font=("times new roman", 11, "bold"),
                                       fg="red", bg="white")
-        data_right_frame.place(x=585, y=10, width=660, height=530)
+        data_right_frame.place(x=(width-50)/2 + 15, y=5, width=(width-50)-(width-50)/2, height=height-150)
 
         # image - inside right frame
         img_6 = Image.open(r"college_images\6th.jpg")
