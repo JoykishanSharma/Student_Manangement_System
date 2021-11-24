@@ -12,11 +12,13 @@ To make changes, please make a Pull Request.
     * mysql-connector-python
 
 ## Database Structure
+* Database Structure Screenshot
 ![Database Structure Screenshot](https://raw.githubusercontent.com/JoykishanSharma/Student_Manangement_System/master/images/database_structure.png)
+* MySQL Workbench Screenshot
 ![MySQL Workbench Screenshot](https://raw.githubusercontent.com/JoykishanSharma/Student_Manangement_System/master/images/workbench_screenshot.png)
 
 ## Database Connection
 Make sure to update [these variables]() to establish the database connection.
 
 ## Application Screenshot
-![SMS Application Screenshot](https://raw.githubusercontent.com/JoykishanSharma/Student_Manangement_System/master/cimages/sms_application_screenshot.png)
+![SMS Application Screenshot](https://raw.githubusercontent.com/JoykishanSharma/Student_Manangement_System/master/cimages/application_screenshot.png)
