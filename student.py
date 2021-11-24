@@ -83,19 +83,22 @@ class Student:
         data_left_frame.place(x=10, y=5, width=(width-50)/2, height=height-150)
 
         # image - inside left frame
-        img_5 = Image.open(r"college_images\3rd.jpg")
-        img_5 = img_5.resize((560, 120), Image.ANTIALIAS)
+        image_width = int((width-50)/2)
+        left_frame_width = int((width-50)/2 - 10)
+        img_5 = Image.open(r"college_images\left_frame.jpg")
+        img_5 = img_5.resize((image_width-10, 220), Image.ANTIALIAS)
         self.photoImg_5 = ImageTk.PhotoImage(img_5)
 
-        left_top_img = Label(data_left_frame, image=self.photoImg_5, bd=2, relief=RIDGE)
-        left_top_img.place(x=0, y=0, width=550, height=120)
+        left_top_img = Label(data_left_frame, image=self.photoImg_5, bd=2, relief=RIDGE,
+                             borderwidth=0, highlightthickness=0)
+        left_top_img.place(x=0, y=0, width=left_frame_width, height=220)
 
         # current course label frame Information
-        std_lbl_info_frame = LabelFrame(data_left_frame, bd=4, relief=RIDGE,
+        std_lbl_info_frame = LabelFrame(data_left_frame, bd=4,
                                         padx=2, text="Current Course Information",
                                         font=("times new roman", 12, "bold"),
-                                        fg="red", bg="white")
-        std_lbl_info_frame.place(x=0, y=120, width=550, height=115)
+                                        fg="red", bg="white", borderwidth=3, relief="ridge")
+        std_lbl_info_frame.place(x=0, y=220, width=left_frame_width, height=115)
 
         # Label and Combobox
         # department
@@ -106,29 +109,29 @@ class Student:
         combo_dept = ttk.Combobox(std_lbl_info_frame,
                                   textvariable=self.var_dept,
                                   font=("arial", 10, "bold"),
-                                  width=17, state="readonly")
+                                  width=24, state="readonly")
         combo_dept["value"] = ("Select Department",
+                               "Mechanical Engineering",
                                "Computer Science",
-                               "Computer Application",
+                               "Information Technology",
+                               "Electrical Engineering",
                                "Civil Engineering",
-                               "Mechanical Engineering")
+                               "Computer Application")
         combo_dept.current(0)
         combo_dept.grid(row=0, column=1, padx=2, pady=10, sticky=W)
 
         # course
-        course_std = Label(std_lbl_info_frame, text="Courses:",
+        course_std = Label(std_lbl_info_frame, text="Course Type:",
                            font=("arial", 11, "bold"), bg="white")
         course_std.grid(row=0, column=2, padx=2, pady=10, sticky=W)
 
         combo_course = ttk.Combobox(std_lbl_info_frame,
                                     textvariable=self.var_course,
                                     font=("arial", 10, "bold"),
-                                    width=17, state="readonly")
+                                    width=18, state="readonly")
         combo_course["value"] = ("Select Course",
-                                 "FE",
-                                 "SE",
-                                 "TE",
-                                 "BE")
+                                 "Under Graduation",
+                                 "Post Graduation")
         combo_course.current(0)
         combo_course.grid(row=0, column=3, padx=2, pady=10, sticky=W)
 
@@ -169,7 +172,7 @@ class Student:
                                          padx=2, text="Student Class Information",
                                          font=("times new roman", 12, "bold"),
                                          fg="red", bg="white")
-        std_lbl_class_frame.place(x=0, y=235, width=550, height=220)
+        std_lbl_class_frame.place(x=0, y=335, width=550, height=220)
 
         # Label and Combobox
         # ID
@@ -293,7 +296,7 @@ class Student:
 
         # button frame
         button_frame = Frame(data_left_frame, bd=2, relief=RIDGE, bg="white")
-        button_frame.place(x=0, y=460, width=550, height=50)
+        button_frame.place(x=0, y=560, width=550, height=50)
 
         # save button
         btn_add = Button(button_frame, text="Save",
