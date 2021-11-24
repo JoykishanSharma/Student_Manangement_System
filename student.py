@@ -41,7 +41,7 @@ class Student:
         self.database = database_credential.database
 
         # bg image
-        img_4 = Image.open(r"college_images\university.jpg")
+        img_4 = Image.open(r"images\university.jpg")
         img_4 = img_4.resize((width, height), Image.ANTIALIAS)
         self.photoImg_4 = ImageTk.PhotoImage(img_4)
 
@@ -68,7 +68,7 @@ class Student:
         # image - inside left frame
         image_width = int((width - 50) / 2)
         left_frame_width = int((width - 50) / 2 - 10)
-        img_5 = Image.open(r"college_images\left_frame.jpg")
+        img_5 = Image.open(r"images\left_frame.jpg")
         img_5 = img_5.resize((image_width - 10, 220), Image.ANTIALIAS)
         self.photoImg_5 = ImageTk.PhotoImage(img_5)
 
@@ -353,7 +353,7 @@ class Student:
 
         # image - inside right frame
         right_frame_width = int((width - 50) / 2 - 10)
-        img_6 = Image.open(r"college_images\right_frame.jpg")
+        img_6 = Image.open(r"images\right_frame.jpg")
         img_6 = img_6.resize((image_width, 220), Image.ANTIALIAS)
         self.photoImg_6 = ImageTk.PhotoImage(img_6)
 
