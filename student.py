@@ -33,7 +33,7 @@ class Student:
         self.var_email = StringVar()
         self.var_phone = StringVar()
         self.var_address = StringVar()
-        self.var_teacher = StringVar()
+        self.var_mentor = StringVar()
 
         # 1st Image
         # img_1 = Image.open(r"college_images\classroom.jpg")
@@ -325,7 +325,7 @@ class Student:
         lbl_mentor.grid(row=5, column=2, padx=(50, 2), pady=7, sticky=W)
 
         mentor_entry = ttk.Entry(std_lbl_class_frame,
-                                 textvariable=self.var_teacher,
+                                 textvariable=self.var_mentor,
                                  font=("arial", 10, "bold"),
                                  width=24)
         mentor_entry.grid(row=5, column=3, padx=2, pady=7, sticky=W)
@@ -371,23 +371,25 @@ class Student:
         data_right_frame.place(x=(width - 50) / 2 + 15, y=5, width=(width - 50) - (width - 50) / 2, height=height - 150)
 
         # image - inside right frame
-        img_6 = Image.open(r"college_images\6th.jpg")
-        img_6 = img_6.resize((650, 120), Image.ANTIALIAS)
+        right_frame_width = int((width - 50) / 2 - 10)
+        img_6 = Image.open(r"college_images\right_frame.jpg")
+        img_6 = img_6.resize((image_width, 220), Image.ANTIALIAS)
         self.photoImg_6 = ImageTk.PhotoImage(img_6)
 
-        right_top_img = Label(data_right_frame, image=self.photoImg_6, bd=2, relief=RIDGE)
-        right_top_img.place(x=0, y=0, width=650, height=120)
+        right_top_img = Label(data_right_frame, image=self.photoImg_6, bd=2, borderwidth=0,
+                              highlightthickness=0, relief=RIDGE)
+        right_top_img.place(x=0, y=0, width=image_width - 10, height=220)
 
         # search frame
         search_frame = LabelFrame(data_right_frame, bd=4, relief=RIDGE,
                                   padx=2, text="Search Student Information",
                                   font=("times new roman", 11, "bold"),
                                   fg="red", bg="white")
-        search_frame.place(x=0, y=120, width=650, height=60)
+        search_frame.place(x=0, y=220, width=right_frame_width, height=60)
 
         # search by label
         search_by = Label(search_frame, text="Search By:",
-                          font=("arial", 11, "bold"), fg="red", bg="black")
+                          font=("arial", 11, "bold"), fg="black")
         search_by.grid(row=0, column=0, padx=5, sticky=W)
 
         # search
@@ -395,7 +397,7 @@ class Student:
         search_combo = ttk.Combobox(search_frame,
                                     textvariable=self.var_combo_search,
                                     font=("arial", 10, "bold"),
-                                    width=15, state="readonly")
+                                    width=18, state="readonly")
         search_combo["value"] = ("Select Option",
                                  "Roll_No",
                                  "Phone",
@@ -407,7 +409,7 @@ class Student:
         search_entry = ttk.Entry(search_frame,
                                  textvariable=self.var_search,
                                  font=("arial", 10, "bold"),
-                                 width=20)
+                                 width=28)
         search_entry.grid(row=0, column=2, padx=2, sticky=W)
 
         # search button
@@ -415,7 +417,7 @@ class Student:
                             font=("arial", 11, "bold"),
                             command=self.search_data,
                             width=12, bg="blue", fg="white")
-        btn_search.grid(row=0, column=3, padx=5, sticky=W)
+        btn_search.grid(row=0, column=3, padx=8, sticky=W)
 
         # show all button
         btn_show_all = Button(search_frame, text="Show All",
@@ -425,25 +427,27 @@ class Student:
         btn_show_all.grid(row=0, column=4, padx=5, sticky=W)
 
         # Student Table & scroll bar
-        table_frame = Frame(data_right_frame, bd=4, relief=RIDGE)
-        table_frame.place(x=0, y=180, width=650, height=325)
+        table_frame = Frame(data_right_frame, bd=4, relief="ridge")
+        table_frame.place(x=0, y=280, width=right_frame_width, height=410)
 
         scroll_bar_x = ttk.Scrollbar(table_frame, orient=HORIZONTAL)
         scroll_bar_y = ttk.Scrollbar(table_frame, orient=VERTICAL)
         self.student_table = ttk.Treeview(table_frame, column=("dept",
                                                                "course",
-                                                               "year",
+                                                               "admit_year",
                                                                "sem",
                                                                "id",
                                                                "name",
-                                                               "div_class",
+                                                               "father_name",
+                                                               "father_mobi"
+                                                               "bd_grp",
                                                                "roll",
                                                                "gender",
                                                                "dob",
                                                                "email",
                                                                "phone",
                                                                "address",
-                                                               "teacher"),
+                                                               "mentor"),
                                           xscrollcommand=scroll_bar_x.set,
                                           yscrollcommand=scroll_bar_y.set)
         scroll_bar_x.pack(side=BOTTOM, fill=X)
@@ -454,35 +458,39 @@ class Student:
 
         self.student_table.heading("dept", text="Department")
         self.student_table.heading("course", text="Course")
-        self.student_table.heading("year", text="Year")
+        self.student_table.heading("admit_year", text="Admission Year")
         self.student_table.heading("sem", text="Semester")
         self.student_table.heading("id", text="StudentID")
         self.student_table.heading("name", text="Student Name")
-        self.student_table.heading("div_class", text="Class Div")
+        self.student_table.heading("father_name", text="Father Name")
+        self.student_table.heading("father_mobi", text="Father Mobile")
+        self.student_table.heading("bd_grp", text="Blood Group")
         self.student_table.heading("roll", text="Roll No")
         self.student_table.heading("gender", text="Gender")
         self.student_table.heading("dob", text="DOB")
         self.student_table.heading("email", text="Email")
         self.student_table.heading("phone", text="Phone No")
         self.student_table.heading("address", text="Address")
-        self.student_table.heading("teacher", text="Teacher Name")
+        self.student_table.heading("mentor", text="Mentor")
 
         self.student_table["show"] = "headings"
 
         self.student_table.column("dept", width=100)
         self.student_table.column("course", width=100)
-        self.student_table.column("year", width=100)
+        self.student_table.column("admit_year", width=100)
         self.student_table.column("sem", width=100)
         self.student_table.column("id", width=100)
         self.student_table.column("name", width=100)
-        self.student_table.column("div_class", width=100)
+        self.student_table.column("father_name", width=100)
+        self.student_table.column("father_mobi", width=100)
+        self.student_table.column("bd_grp", width=100)
         self.student_table.column("roll", width=100)
         self.student_table.column("gender", width=100)
         self.student_table.column("dob", width=100)
         self.student_table.column("email", width=100)
         self.student_table.column("phone", width=100)
         self.student_table.column("address", width=100)
-        self.student_table.column("teacher", width=100)
+        self.student_table.column("mentor", width=100)
 
         self.student_table.pack(fill=BOTH, expand=1)
         self.student_table.bind("<ButtonRelease>", self.get_cursor)
@@ -500,21 +508,23 @@ class Student:
                                                      password="devServerSQL@123",
                                                      database="student_management_system")
                 cursor = connection.cursor()
-                cursor.execute("insert into student values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s)",
+                cursor.execute("insert into student values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                                (self.var_dept.get(),
                                 self.var_course.get(),
-                                self.var_year.get(),
+                                self.var_admission_year.get(),
                                 self.var_semester.get(),
                                 self.var_std_id.get(),
                                 self.var_std_name.get(),
-                                self.var_div_class.get(),
+                                self.var_father_name.get(),
+                                self.var_father_mobile.get(),
+                                self.var_blood_group.get(),
                                 self.var_roll.get(),
                                 self.var_gender.get(),
                                 self.var_dob.get(),
                                 self.var_email.get(),
                                 self.var_phone.get(),
                                 self.var_address.get(),
-                                self.var_teacher.get()
+                                self.var_mentor.get()
                                 ))
                 connection.commit()
                 self.fetch_data()
@@ -547,18 +557,20 @@ class Student:
 
         self.var_dept.set(data[0])
         self.var_course.set(data[1])
-        self.var_year.set(data[2])
+        self.var_admission_year.set(data[2])
         self.var_semester.set(data[3])
         self.var_std_id.set(data[4])
         self.var_std_name.set(data[5])
-        self.var_div_class.set(data[6])
-        self.var_roll.set(data[7])
-        self.var_gender.set(data[8])
-        self.var_dob.set(data[9])
-        self.var_email.set(data[10])
-        self.var_phone.set(data[11])
-        self.var_address.set(data[12])
-        self.var_teacher.set(data[13])
+        self.var_father_name.set(data[6])
+        self.var_father_mobile.set(data[7])
+        self.var_blood_group.set(data[8])
+        self.var_roll.set(data[9])
+        self.var_gender.set(data[10])
+        self.var_dob.set(data[11])
+        self.var_email.set(data[12])
+        self.var_phone.set(data[13])
+        self.var_address.set(data[14])
+        self.var_mentor.set(data[15])
 
     # update data
     def update_data(self):
@@ -577,21 +589,24 @@ class Student:
                                                          database="student_management_system")
                     cursor = connection.cursor()
                     cursor.execute(
-                        "update student set dept=%s,course=%s,year=%s,semester=%s,name=%s,div_class=%s,roll_no=%s,"
-                        "gender=%s,dob=%s,email=%s,phone=%s,address=%s,teacher=%s where student_id=%s",
+                        "update student set dept=%s,course=%s,admit_year=%s,semester=%s,name=%s,father_name=%s,"
+                        "father_mobi=%s,bd_grp=%s,roll_no=%s,gender=%s,dob=%s,email=%s,phone=%s,address=%s,"
+                        "mentor=%s where student_id=%s",
                         (self.var_dept.get(),
                          self.var_course.get(),
-                         self.var_year.get(),
+                         self.var_admission_year.get(),
                          self.var_semester.get(),
                          self.var_std_name.get(),
-                         self.var_div_class.get(),
+                         self.var_father_name.get(),
+                         self.var_father_mobile.get(),
+                         self.var_blood_group.get(),
                          self.var_roll.get(),
                          self.var_gender.get(),
                          self.var_dob.get(),
                          self.var_email.get(),
                          self.var_phone.get(),
                          self.var_address.get(),
-                         self.var_teacher.get(),
+                         self.var_mentor.get(),
                          self.var_std_id.get()
                          ))
                 else:
@@ -637,18 +652,20 @@ class Student:
     def reset_data(self):
         self.var_dept.set("Select Department")
         self.var_course.set("Select Course")
-        self.var_year.set("Select Year")
+        self.var_admission_year.set("Select Year")
         self.var_semester.set("Select Semester")
         self.var_std_id.set("")
         self.var_std_name.set("")
-        self.var_div_class.set("Select Division")
+        self.var_father_name.set("")
+        self.var_father_mobile.set("")
+        self.var_blood_group.set("Select Blood Group")
         self.var_roll.set("")
         self.var_gender.set("")
         self.var_dob.set("")
         self.var_email.set("")
         self.var_phone.set("")
         self.var_address.set("")
-        self.var_teacher.set("")
+        self.var_mentor.set("")
 
     # search data
     def search_data(self):
@@ -672,35 +689,3 @@ class Student:
                 connection.close()
             except Exception as es:
                 messagebox.showerror("Error", f"Due To:{str(es)}", parent=self.root)
-
-    # open image
-    def open_image_1(self):
-        file_name = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open Image",
-                                               filetypes=(
-                                                   ("JPG File", "*.jpg"), ("PNG File", "*.png"), ("All Files", "*.*")))
-        image_1 = Image.open(file_name)
-        img_browse_1 = image_1.resize((430, 160), Image.ANTIALIAS)
-        self.photoimg_browse_1 = ImageTk.PhotoImage(img_browse_1)
-        self.btn_1.config(image=self.photoimg_browse_1)
-
-    # open image
-    def open_image_2(self):
-        file_name = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open Image",
-                                               filetypes=(
-                                                   ("JPG File", "*.jpg"), ("PNG File", "*.png"),
-                                                   ("All Files", "*.*")))
-        image_2 = Image.open(file_name)
-        img_browse_2 = image_2.resize((430, 160), Image.ANTIALIAS)
-        self.photoimg_browse_2 = ImageTk.PhotoImage(img_browse_2)
-        self.btn_2.config(image=self.photoimg_browse_2)
-
-    # open image
-    def open_image_3(self):
-        file_name = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open Image",
-                                               filetypes=(
-                                                   ("JPG File", "*.jpg"), ("PNG File", "*.png"),
-                                                   ("All Files", "*.*")))
-        image_3 = Image.open(file_name)
-        img_browse_3 = image_3.resize((430, 160), Image.ANTIALIAS)
-        self.photoimg_browse_3 = ImageTk.PhotoImage(img_browse_3)
-        self.btn_3.config(image=self.photoimg_browse_3)
