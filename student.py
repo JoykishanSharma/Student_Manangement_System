@@ -105,7 +105,7 @@ class Student:
                                     textvariable=self.var_course,
                                     font=("arial", 10, "bold"),
                                     width=18, state="readonly")
-        combo_course["value"] = ("Select Course",
+        combo_course["value"] = ("Select Course Type",
                                  "Under Graduation",
                                  "Post Graduation")
         combo_course.current(0)
@@ -472,8 +472,26 @@ class Student:
 
     def add_data(self):
         if (self.var_dept.get() == "" or
+                self.var_dept.get() == "Select Department" or
+                self.var_course.get() == "" or
+                self.var_course.get() == "Select Course Type" or
+                self.var_admission_year.get() == "" or
+                self.var_admission_year.get() == "Select Year" or
+                self.var_semester.get() == "" or
+                self.var_semester.get() == "Select Semester" or
+                self.var_std_id.get() == "" or
+                self.var_std_name.get() == "" or
+                self.var_father_name.get() == "" or
+                self.var_father_mobile.get() == "" or
+                self.var_blood_group.get() == "" or
+                self.var_blood_group.get() == "Select Blood Group" or
+                self.var_roll.get() == "" or
+                self.var_gender.get() == "" or
+                self.var_dob.get() == "" or
                 self.var_email.get() == "" or
-                self.var_std_id.get() == ""):
+                self.var_phone.get() == "" or
+                self.var_address.get() == "" or
+                self.var_mentor.get() == ""):
             messagebox.showerror("Error", "All Field are required!")
         else:
             try:
@@ -549,8 +567,26 @@ class Student:
     # update data
     def update_data(self):
         if (self.var_dept.get() == "" or
+                self.var_dept.get() == "Select Department" or
+                self.var_course.get() == "" or
+                self.var_course.get() == "Select Course Type" or
+                self.var_admission_year.get() == "" or
+                self.var_admission_year.get() == "Select Year" or
+                self.var_semester.get() == "" or
+                self.var_semester.get() == "Select Semester" or
+                self.var_std_id.get() == "" or
+                self.var_std_name.get() == "" or
+                self.var_father_name.get() == "" or
+                self.var_father_mobile.get() == "" or
+                self.var_blood_group.get() == "" or
+                self.var_blood_group.get() == "Select Blood Group" or
+                self.var_roll.get() == "" or
+                self.var_gender.get() == "" or
+                self.var_dob.get() == "" or
                 self.var_email.get() == "" or
-                self.var_std_id.get() == ""):
+                self.var_phone.get() == "" or
+                self.var_address.get() == "" or
+                self.var_mentor.get() == ""):
             messagebox.showerror("Error", "All Field are required!")
         else:
             try:
