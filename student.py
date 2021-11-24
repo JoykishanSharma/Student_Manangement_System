@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk  # pip install pillow
 import mysql.connector  # pip install mysql-connector-python
+import database_credential
 
 
 class Student:
@@ -32,6 +33,12 @@ class Student:
         self.var_phone = StringVar()
         self.var_address = StringVar()
         self.var_mentor = StringVar()
+
+        # Database Connectivity Variables
+        self.host = database_credential.host
+        self.username = database_credential.username
+        self.password = database_credential.password
+        self.database = database_credential.database
 
         # bg image
         img_4 = Image.open(r"college_images\university.jpg")
@@ -495,29 +502,30 @@ class Student:
             messagebox.showerror("Error", "All Field are required!")
         else:
             try:
-                connection = mysql.connector.connect(host="localhost",
-                                                     username="root",
-                                                     password="devServerSQL@123",
-                                                     database="student_management_system")
+                connection = mysql.connector.connect(host=self.host,
+                                                     username=self.username,
+                                                     password=self.password,
+                                                     database=self.database)
                 cursor = connection.cursor()
-                cursor.execute("insert into student values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                               (self.var_dept.get(),
-                                self.var_course.get(),
-                                self.var_admission_year.get(),
-                                self.var_semester.get(),
-                                self.var_std_id.get(),
-                                self.var_std_name.get(),
-                                self.var_father_name.get(),
-                                self.var_father_mobile.get(),
-                                self.var_blood_group.get(),
-                                self.var_roll.get(),
-                                self.var_gender.get(),
-                                self.var_dob.get(),
-                                self.var_email.get(),
-                                self.var_phone.get(),
-                                self.var_address.get(),
-                                self.var_mentor.get()
-                                ))
+                cursor.execute(
+                    "insert into student values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    (self.var_dept.get(),
+                     self.var_course.get(),
+                     self.var_admission_year.get(),
+                     self.var_semester.get(),
+                     self.var_std_id.get(),
+                     self.var_std_name.get(),
+                     self.var_father_name.get(),
+                     self.var_father_mobile.get(),
+                     self.var_blood_group.get(),
+                     self.var_roll.get(),
+                     self.var_gender.get(),
+                     self.var_dob.get(),
+                     self.var_email.get(),
+                     self.var_phone.get(),
+                     self.var_address.get(),
+                     self.var_mentor.get()
+                     ))
                 connection.commit()
                 self.fetch_data()
                 connection.close()
@@ -527,10 +535,10 @@ class Student:
 
     # fetch function
     def fetch_data(self):
-        connection = mysql.connector.connect(host="localhost",
-                                             username="root",
-                                             password="devServerSQL@123",
-                                             database="student_management_system")
+        connection = mysql.connector.connect(host=self.host,
+                                             username=self.username,
+                                             password=self.password,
+                                             database=self.database)
         cursor = connection.cursor()
         cursor.execute("select * from student")
         data = cursor.fetchall()
@@ -593,10 +601,10 @@ class Student:
                 update = messagebox.askyesno("Update", "Are you sure update this student data",
                                              parent=self.root)
                 if update > 0:
-                    connection = mysql.connector.connect(host="localhost",
-                                                         username="root",
-                                                         password="devServerSQL@123",
-                                                         database="student_management_system")
+                    connection = mysql.connector.connect(host=self.host,
+                                                         username=self.username,
+                                                         password=self.password,
+                                                         database=self.database)
                     cursor = connection.cursor()
                     cursor.execute(
                         "update student set dept=%s,course=%s,admit_year=%s,semester=%s,name=%s,father_name=%s,"
@@ -639,10 +647,10 @@ class Student:
                 delete = messagebox.askyesno("Delete", "Are you sure delete this student data",
                                              parent=self.root)
                 if delete > 0:
-                    connection = mysql.connector.connect(host="localhost",
-                                                         username="root",
-                                                         password="devServerSQL@123",
-                                                         database="student_management_system")
+                    connection = mysql.connector.connect(host=self.host,
+                                                         username=self.username,
+                                                         password=self.password,
+                                                         database=self.database)
                     cursor = connection.cursor()
                     sql_query = "delete from student where student_id=%s"
                     value = (self.var_std_id.get(),)
@@ -683,10 +691,10 @@ class Student:
             messagebox.showerror("Error", "Please select option")
         else:
             try:
-                connection = mysql.connector.connect(host="localhost",
-                                                     username="root",
-                                                     password="devServerSQL@123",
-                                                     database="student_management_system")
+                connection = mysql.connector.connect(host=self.host,
+                                                     username=self.username,
+                                                     password=self.password,
+                                                     database=self.database)
                 cursor = connection.cursor()
                 cursor.execute("Select * from student where " + str(self.var_combo_search.get()) +
                                " LIKE '%" + str(self.var_search.get()) + "%'")
