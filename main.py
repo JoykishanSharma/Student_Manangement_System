@@ -1,7 +1,7 @@
 from tkinter import *
-from student import Student
+from authentication import Authentication
 
 if __name__ == "__main__":
     root = Tk()
-    obj = Student(root)
+    obj = Authentication(root)
     root.mainloop()
