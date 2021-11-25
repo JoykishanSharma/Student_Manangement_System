@@ -641,7 +641,7 @@ class Student:
     # delete data
     def delete_data(self):
         if self.var_std_id.get() == "":
-            messagebox.showerror("Error", "All Field are required!")
+            messagebox.showerror("Error", "All Field are required! Select from left table.")
         else:
             try:
                 delete = messagebox.askyesno("Delete", "Are you sure delete this student data",
